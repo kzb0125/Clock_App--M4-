@@ -16,33 +16,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5r-bR-zX3">
-                                <rect key="frame" x="0.0" y="232" width="393" height="105"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZU7-Sr-br2">
-                                <rect key="frame" x="93" y="360" width="208" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Start Timer / Stop Music"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNw-lj-3OA">
-                                <rect key="frame" x="135" y="510" width="122" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="live clock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNO-Ax-h4S">
-                                <rect key="frame" x="161" y="153" width="71" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MfI-VJ-yw0">
+                                <rect key="frame" x="0.0" y="60" width="393" height="792"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="HHR-zk-iSL" userLabel="clockView">
+                                        <rect key="frame" x="20" y="0.0" width="353" height="80.333333333333329"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="live clock" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNO-Ax-h4S">
+                                                <rect key="frame" x="113.66666666666666" y="0.0" width="125.66666666666666" height="80.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C0t-jL-YEC" userLabel="datePickerView">
+                                        <rect key="frame" x="36.666666666666657" y="90.333333333333371" width="320" height="483"/>
+                                        <subviews>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5r-bR-zX3">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="483"/>
+                                            </datePicker>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="u5r-bR-zX3" secondAttribute="trailing" constant="20" id="lcT-AA-W3l"/>
+                                            <constraint firstItem="u5r-bR-zX3" firstAttribute="leading" secondItem="C0t-jL-YEC" secondAttribute="leading" constant="20" id="tsq-tf-THn"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SGi-wg-Cjx" userLabel="timerView">
+                                        <rect key="frame" x="20" y="583.33333333333337" width="353" height="88.333333333333371"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZU7-Sr-br2">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="88.333333333333329"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ZU7-Sr-br2" secondAttribute="height" multiplier="200:50" id="tCt-xV-D0a"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="Start Timer / Stop Music"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aSv-P1-wAg" userLabel="remainTimeView">
+                                        <rect key="frame" x="20" y="681.66666666666663" width="353" height="110.33333333333337"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Remaining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNw-lj-3OA">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="110.33333333333333"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="aSv-P1-wAg" firstAttribute="leading" secondItem="MfI-VJ-yw0" secondAttribute="leading" constant="20" id="6Vg-Fw-9Ab"/>
+                                    <constraint firstItem="HHR-zk-iSL" firstAttribute="leading" secondItem="MfI-VJ-yw0" secondAttribute="leading" constant="20" id="Dba-jX-bch"/>
+                                    <constraint firstAttribute="trailing" secondItem="SGi-wg-Cjx" secondAttribute="trailing" constant="20" id="QJS-3S-4FZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="aSv-P1-wAg" secondAttribute="trailing" constant="20" id="Udx-Mb-XjV"/>
+                                    <constraint firstAttribute="trailing" secondItem="HHR-zk-iSL" secondAttribute="trailing" constant="20" id="fIk-5W-T1I"/>
+                                    <constraint firstItem="SGi-wg-Cjx" firstAttribute="leading" secondItem="MfI-VJ-yw0" secondAttribute="leading" constant="20" id="pnl-X9-8e0"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="MfI-VJ-yw0" secondAttribute="bottom" id="3VQ-dy-o5A"/>
+                            <constraint firstItem="MfI-VJ-yw0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="DfB-PK-Ljj"/>
+                            <constraint firstItem="MfI-VJ-yw0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HEM-Ig-p5A"/>
+                            <constraint firstAttribute="trailing" secondItem="MfI-VJ-yw0" secondAttribute="trailing" id="zKk-K2-NtH"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
