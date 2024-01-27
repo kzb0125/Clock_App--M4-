@@ -16,12 +16,18 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var timeRemaining: UILabel!
     
-    
+    // Date format: "EE, dd MMM YYYY hh:mm:ss"
+    // e.g. Wed, 28 Dec 2022 14:59:00
     var dateToFormat : DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EE, dd MMM YYYY hh:mm:ss"
         return dateFormatter
     }
+    
+    // initialize AM/PM flag, displayMode flag, changeMode flag
+    var isAm = true
+    var displayMode = true
+    var changeMode = false
     
     var clockUpdater = Timer()
     
@@ -43,36 +49,45 @@ class ViewController: UIViewController {
     // updates liveClock.text to current time
     // executes every 1 sec, by call from clockTimer
     @objc func updateClock() {
+        // update Live Clock Display
         let currentDate = Date()
         liveClock.text = dateToFormat.string(from: currentDate)
         
-        // update bg_image to reflect AM/PM
+        // update isAm to reflect current AM/PM
         let calendar = Calendar.current
         let currentHour = calendar.component(.hour, from: currentDate)
+        isAm = (currentHour < 12) ? true : false
         
-        /*
-        // AM/PM format testing
-            bgImage.image = UIImage (named: "pm_Image")
-            liveClock.textColor = UIColor.white
-            timerPicker.overrideUserInterfaceStyle = .dark
-            startStopButton.titleLabel!.textColor = UIColor.white
-            timeRemaining.textColor = UIColor.white
-        */
+        // changeMode is true when current AM/PM does not match up with Light/Dark mode, respectively
+        changeMode = (isAm == displayMode) ? false : true
         
-        if (currentHour < 12) { // from 0:00 - 11:59 -> AM
-             bgImage.image = UIImage (named: "am_Image")
-             liveClock.textColor = UIColor.black
-             timerPicker.overrideUserInterfaceStyle = .light
-             startStopButton.titleLabel!.textColor = UIColor.black
-             timeRemaining.textColor = UIColor.black
-        } else { // from 12:00 - 23:59 -> PM
-             bgImage.image = UIImage (named: "pm_Image")
-             liveClock.textColor = UIColor.white
-             timerPicker.overrideUserInterfaceStyle = .dark
-             startStopButton.titleLabel!.textColor = UIColor.white
-             timeRemaining.textColor = UIColor.white
+        if (changeMode) { // change displayMode when changeMode is true
+            displayMode = !displayMode //toggle displayMode to match current AM/PM flag
+            if (displayMode) { // if displayMode is true, activate light mode
+                lightMode()
+            } else { // if displayMode is false, activate dark mode
+                darkMode()
+            }
+            changeMode = !changeMode // toggle changeMode after changes are made, so it doesnt trigger again until AM/PM flag does not match up with Light/Dark mode flag.
         }
         
+    }
+    
+    func lightMode() { // displayMode == true
+        bgImage.image = UIImage (named: "am_Image")
+        liveClock.textColor = UIColor.black
+        timerPicker.overrideUserInterfaceStyle = .light
+        startStopButton.titleLabel!.textColor = UIColor.black
+        timeRemaining.textColor = UIColor.black
+    }
+    
+    func darkMode() { // displayMode == false
+        isAm = false
+        bgImage.image = UIImage (named: "pm_Image")
+        liveClock.textColor = UIColor.white
+        timerPicker.overrideUserInterfaceStyle = .dark
+        startStopButton.titleLabel!.textColor = UIColor.white
+        timeRemaining.textColor = UIColor.white
     }
 
 }
