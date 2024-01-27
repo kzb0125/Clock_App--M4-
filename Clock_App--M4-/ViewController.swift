@@ -2,47 +2,41 @@
 //  ViewController.swift
 //  Clock_App--M4-
 //
-//  Created by Ellie Kim on 1/25/24.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
     
-    var dateFormatter : DateFormatter {
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "EE, dd MMM YYYY hh:mm:ss"
-        return dateFormat
+    var dateToFormat : DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EE, dd MMM YYYY hh:mm:ss"
+        return dateFormatter
     }
     
     var timer = Timer()
     
     @IBOutlet weak var liveClock: UILabel!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //liveClock update
-        updateLiveClock()
+        // start liveClock Timer
+        clockTimer()
     }
     
     func updateTimestamp() {
-        let dateString  = dateFormatter.string(from: Date())
+        let dateString  = dateToFormat.string(from: Date())
         
         liveClock.text = "\(dateString)"
         
     }
     
-    func updateLiveClock() {
-        let clockTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-        
+    func clockTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateClock), userInfo: nil, repeats: true)
     }
     
-    
-    
-    
-    
+    @objc func updateClock() {
+        liveClock.text = dateToFormat.string(from: Date())
+    }
+
 }
 
