@@ -7,13 +7,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var liveClock: UILabel!
-    
     @IBOutlet weak var bgImage: UIImageView!
-    
     @IBOutlet weak var timerPicker: UIDatePicker!
-    
     @IBOutlet weak var startStopButton: UIButton!
-    
     @IBOutlet weak var timeRemaining: UILabel!
     
     // Date format: "EE, dd MMM YYYY hh:mm:ss"
@@ -24,18 +20,30 @@ class ViewController: UIViewController {
         return dateFormatter
     }
     
+    // Time Remaining format: "hh:mm:ss"
+    var timerFormat : DateComponentsFormatter {
+        let timerFormatter = DateComponentsFormatter()
+        timerFormatter.allowedUnits = [.hour, .minute, .second]
+        timerFormatter.zeroFormattingBehavior = .pad
+        return timerFormatter
+    }
+    
     // initialize AM/PM flag, displayMode flag, changeMode flag
     var isAm = true
     var displayMode = true
     var changeMode = false
     
     var clockUpdater = Timer()
+    var timerUpdater = Timer()
+    var setTimer: Double = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // start liveClock Timer
         clockTimer()
+        
     }
     
     // clock Timer
@@ -56,6 +64,7 @@ class ViewController: UIViewController {
         // update isAm to reflect current AM/PM
         let calendar = Calendar.current
         let currentHour = calendar.component(.hour, from: currentDate)
+        //let currentMin = calendar.component(.minute, from: currentDate) // used for testing AM/PM change
         isAm = (currentHour < 12) ? true : false
         
         // changeMode is true when current AM/PM does not match up with Light/Dark mode, respectively
@@ -68,7 +77,7 @@ class ViewController: UIViewController {
             } else { // if displayMode is false, activate dark mode
                 darkMode()
             }
-            changeMode = !changeMode // toggle changeMode after changes are made, so it doesnt trigger again until AM/PM flag does not match up with Light/Dark mode flag.
+            changeMode = !changeMode // toggle changeMode after displayMode changes are made so it doesnt trigger again until AM/PM flag changes.
         }
         
     }
@@ -88,6 +97,18 @@ class ViewController: UIViewController {
         timerPicker.overrideUserInterfaceStyle = .dark
         startStopButton.titleLabel!.textColor = UIColor.white
         timeRemaining.textColor = UIColor.white
+    }
+    
+    @IBAction func startTimer(_ sender: UIButton) {
+        timerUpdater.invalidate()
+        startStopButton.setTitle("Stop Timer", for: .normal)
+        setTimer =  timerPicker.countDownDuration
+        timerUpdater = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        setTimer -= 1
+        timeRemaining.text = timerFormat.string(from: setTimer)
     }
 
 }
