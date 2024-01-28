@@ -3,6 +3,7 @@
 //  Clock_App--M4-
 //
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -17,6 +18,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var isTimerOn: UILabel!
     @IBOutlet weak var isMusicOn: UILabel!
     
+    // initialize AM/PM flag, displayMode flag, changeMode flag, timerOn flag
+    var isAm = true
+    var displayMode = true
+    var changeMode = false
+    var timerOn = false
+    var musicOn = false
+    
+    var clockUpdater = Timer()
+    var timerUpdater = Timer()
+    var setTimer: Double = 0
+    
+    // AVAudioPlayer and audio file location
+    var audioPlayer : AVAudioPlayer!
+    var amSound = Bundle.main.url(forResource: "am_Sound", withExtension: "mp3")
+    var pmSound = Bundle.main.url(forResource: "pm_Sound", withExtension: "mp3")
     
     // Date format: "EE, dd MMM YYYY hh:mm:ss"
     // e.g. Wed, 28 Dec 2022 14:59:00
@@ -33,17 +49,6 @@ class ViewController: UIViewController {
         timerFormatter.zeroFormattingBehavior = .pad
         return timerFormatter
     }
-    
-    // initialize AM/PM flag, displayMode flag, changeMode flag, timerOn flag
-    var isAm = true
-    var displayMode = true
-    var changeMode = false
-    var timerOn = false
-    var musicOn = false
-    
-    var clockUpdater = Timer()
-    var timerUpdater = Timer()
-    var setTimer: Double = 0
     
     
     override func viewDidLoad() {
@@ -93,6 +98,7 @@ class ViewController: UIViewController {
             if (displayMode) { // if displayMode is true, activate light mode
                 lightMode()
             } else { // if displayMode is false, activate dark mode
+                isAm = false
                 darkMode()
             }
             changeMode = !changeMode // toggle changeMode after displayMode changes are made so it doesnt trigger again until AM/PM flag changes.
@@ -105,15 +111,16 @@ class ViewController: UIViewController {
         liveClock.textColor = UIColor.black
         timerPicker.overrideUserInterfaceStyle = .light
         startStopButton.titleLabel!.textColor = UIColor.black
+        startStopButton.tintColor = UIColor.black
         timeRemaining.textColor = UIColor.black
     }
     
     func darkMode() { // displayMode == false
-        isAm = false
         bgImage.image = UIImage (named: "pm_Image")
         liveClock.textColor = UIColor.white
         timerPicker.overrideUserInterfaceStyle = .dark
         startStopButton.titleLabel!.textColor = UIColor.white
+        startStopButton.tintColor = UIColor.white
         timeRemaining.textColor = UIColor.white
     }
     
@@ -151,7 +158,7 @@ class ViewController: UIViewController {
             toggleMusic()
         } else {
             updateTestFlags()
-            setTimer -= 10
+            setTimer -= 10 // reset to 1
             var timeAsString = timerFormat.string(from: setTimer)
             timeRemaining.text = "Time Remaining: \(timeAsString ?? "0")"
         }
@@ -162,12 +169,21 @@ class ViewController: UIViewController {
             musicOn = !musicOn
             updateTestFlags()
             startStopButton.setTitle("Stop Music", for: .normal)
-            timeRemaining.text = "Music Playing"
+            if (isAm) {
+                audioPlayer = try! AVAudioPlayer(contentsOf: amSound!)
+                audioPlayer.play()
+            } else {
+                audioPlayer = try! AVAudioPlayer(contentsOf: pmSound!)
+                audioPlayer.play()
+            }
+            
+            timeRemaining.text = "Music Playing" // delete
         } else { // if music is ON, stop Music
             musicOn = !musicOn
             updateTestFlags()
+            audioPlayer.stop()
             startStopButton.setTitle("Start Timer", for: .normal)
-            timeRemaining.text = "Music Stopped"
+            timeRemaining.text = "Music Stopped" // delete
         }
     }
     

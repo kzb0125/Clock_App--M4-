@@ -13,6 +13,8 @@
 		0D8C566D2B6251AF0086C981 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C566B2B6251AF0086C981 /* Main.storyboard */; };
 		0D8C566F2B6251B00086C981 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C566E2B6251B00086C981 /* Assets.xcassets */; };
 		0D8C56722B6251B00086C981 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C56702B6251B00086C981 /* LaunchScreen.storyboard */; };
+		0D8C569B2B65ECFF0086C981 /* pm_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C56992B65ECFF0086C981 /* pm_Sound.mp3 */; };
+		0D8C569C2B65ECFF0086C981 /* am_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0D8C569A2B65ECFF0086C981 /* am_Sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		0D8C566E2B6251B00086C981 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D8C56712B6251B00086C981 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0D8C56732B6251B00086C981 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D8C56992B65ECFF0086C981 /* pm_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pm_Sound.mp3; path = Assets.xcassets/pm_Sound.mp3; sourceTree = "<group>"; };
+		0D8C569A2B65ECFF0086C981 /* am_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = am_Sound.mp3; path = Assets.xcassets/am_Sound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				0D8C566E2B6251B00086C981 /* Assets.xcassets */,
 				0D8C56702B6251B00086C981 /* LaunchScreen.storyboard */,
 				0D8C56732B6251B00086C981 /* Info.plist */,
+				0D8C569A2B65ECFF0086C981 /* am_Sound.mp3 */,
+				0D8C56992B65ECFF0086C981 /* pm_Sound.mp3 */,
 			);
 			path = "Clock_App--M4-";
 			sourceTree = "<group>";
@@ -126,8 +132,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8C56722B6251B00086C981 /* LaunchScreen.storyboard in Resources */,
+				0D8C569C2B65ECFF0086C981 /* am_Sound.mp3 in Resources */,
 				0D8C566F2B6251B00086C981 /* Assets.xcassets in Resources */,
 				0D8C566D2B6251AF0086C981 /* Main.storyboard in Resources */,
+				0D8C569B2B65ECFF0086C981 /* pm_Sound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
