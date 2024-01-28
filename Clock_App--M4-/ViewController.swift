@@ -12,6 +12,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var timeRemaining: UILabel!
     
+    //test Labels
+    
+    @IBOutlet weak var isTimerOn: UILabel!
+    @IBOutlet weak var isMusicOn: UILabel!
+    
+    
     // Date format: "EE, dd MMM YYYY hh:mm:ss"
     // e.g. Wed, 28 Dec 2022 14:59:00
     var dateToFormat : DateFormatter {
@@ -28,10 +34,12 @@ class ViewController: UIViewController {
         return timerFormatter
     }
     
-    // initialize AM/PM flag, displayMode flag, changeMode flag
+    // initialize AM/PM flag, displayMode flag, changeMode flag, timerOn flag
     var isAm = true
     var displayMode = true
     var changeMode = false
+    var timerOn = false
+    var musicOn = false
     
     var clockUpdater = Timer()
     var timerUpdater = Timer()
@@ -40,11 +48,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // start liveClock Timer
         clockTimer()
         
+        //update timerOn and musicOn flags
+        updateTestFlags()
     }
+    
+    // update Test Flags
+    func updateTestFlags() {
+        isTimerOn.text = "timerOn: \(timerOn)"
+        isMusicOn.text = "musicOn: \(musicOn)"
+    }
+    
+    
     
     // clock Timer
     // configures timer that fires every 1 second
@@ -99,16 +117,63 @@ class ViewController: UIViewController {
         timeRemaining.textColor = UIColor.white
     }
     
-    @IBAction func startTimer(_ sender: UIButton) {
-        timerUpdater.invalidate()
+    // Timer Button pressed
+    // if timerOn == false ? startTimer : stopTimer
+    @IBAction func timerPressed(_ sender: UIButton) {
+        if (musicOn == false) {
+            if (timerOn == false) {
+                timerOn = !timerOn
+                updateTestFlags()
+                startTimer()
+            } else {
+                timerOn = !timerOn
+                updateTestFlags()
+                stopTimer()
+            }
+        } else {
+            toggleMusic()
+            updateTestFlags()
+        }
+        
+    }
+    
+    func startTimer() {
         startStopButton.setTitle("Stop Timer", for: .normal)
         setTimer =  timerPicker.countDownDuration
         timerUpdater = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer() {
-        setTimer -= 1
-        timeRemaining.text = timerFormat.string(from: setTimer)
+        if (setTimer < 1) {
+            timerUpdater.invalidate()
+            timerOn = false
+            updateTestFlags()
+            toggleMusic()
+        } else {
+            updateTestFlags()
+            setTimer -= 10
+            var timeAsString = timerFormat.string(from: setTimer)
+            timeRemaining.text = "Time Remaining: \(timeAsString ?? "0")"
+        }
+    }
+    
+    func toggleMusic() {
+        if (musicOn == false) { // if music is NOT ON, play Music
+            musicOn = !musicOn
+            updateTestFlags()
+            startStopButton.setTitle("Stop Music", for: .normal)
+            timeRemaining.text = "Music Playing"
+        } else { // if music is ON, stop Music
+            musicOn = !musicOn
+            updateTestFlags()
+            startStopButton.setTitle("Start Timer", for: .normal)
+            timeRemaining.text = "Music Stopped"
+        }
+    }
+    
+    func stopTimer() {
+        timerUpdater.invalidate()
+        startStopButton.setTitle("Start Timer", for: .normal)
     }
 
 }
