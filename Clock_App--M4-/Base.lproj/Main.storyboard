@@ -19,38 +19,24 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="am_Image" translatesAutoresizingMaskIntoConstraints="NO" id="EDN-82-WjP" userLabel="bgImage">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="timerOn: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4B-uH-q5R">
-                                <rect key="frame" x="250" y="650" width="150" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="musicOn: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJh-oQ-jge">
-                                <rect key="frame" x="250" y="690" width="150" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MfI-VJ-yw0">
                                 <rect key="frame" x="0.0" y="20" width="393" height="822"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, 28 Dec 2022 14:59:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNO-Ax-h4S" userLabel="live clock">
-                                        <rect key="frame" x="43.333333333333343" y="0.0" width="306.66666666666663" height="300.66666666666669"/>
+                                        <rect key="frame" x="43.333333333333343" y="0.0" width="306.66666666666663" height="333.66666666666669"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="1" height="0.0"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5r-bR-zX3">
-                                        <rect key="frame" x="0.0" y="310.66666666666669" width="393" height="295.00000000000006"/>
+                                        <rect key="frame" x="0.0" y="343.66666666666663" width="393" height="294.66666666666663"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="u5r-bR-zX3" secondAttribute="height" multiplier="4:3" id="ewT-2s-Sxb"/>
                                         </constraints>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZU7-Sr-br2">
-                                        <rect key="frame" x="0.0" y="615.66666666666663" width="393" height="98"/>
+                                        <rect key="frame" x="0.0" y="648.33333333333337" width="393" height="98.333333333333371"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ZU7-Sr-br2" secondAttribute="height" multiplier="4:1" id="tCt-xV-D0a"/>
                                         </constraints>
@@ -64,9 +50,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Remaining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNw-lj-3OA">
-                                        <rect key="frame" x="0.0" y="723.66666666666663" width="393" height="98.333333333333371"/>
+                                        <rect key="frame" x="0.0" y="756.66666666666663" width="393" height="65.333333333333371"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="uNw-lj-3OA" secondAttribute="height" multiplier="4:1" id="YHd-Am-0dS"/>
+                                            <constraint firstAttribute="width" secondItem="uNw-lj-3OA" secondAttribute="height" multiplier="6:1" id="YHd-Am-0dS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -90,8 +76,6 @@
                     </view>
                     <connections>
                         <outlet property="bgImage" destination="EDN-82-WjP" id="rIY-UU-jch"/>
-                        <outlet property="isMusicOn" destination="WJh-oQ-jge" id="TKW-Ls-0EI"/>
-                        <outlet property="isTimerOn" destination="K4B-uH-q5R" id="93J-9X-BYZ"/>
                         <outlet property="liveClock" destination="QNO-Ax-h4S" id="Omq-yS-rZM"/>
                         <outlet property="startStopButton" destination="ZU7-Sr-br2" id="Ydf-lQ-rhE"/>
                         <outlet property="timeRemaining" destination="uNw-lj-3OA" id="dhZ-5P-aHu"/>

@@ -13,11 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var timeRemaining: UILabel!
     
-    //test Labels
-    
-    @IBOutlet weak var isTimerOn: UILabel!
-    @IBOutlet weak var isMusicOn: UILabel!
-    
     // initialize AM/PM flag, displayMode flag, changeMode flag, timerOn flag
     var isAm = true
     var displayMode = true
@@ -25,6 +20,7 @@ class ViewController: UIViewController {
     var timerOn = false
     var musicOn = false
     
+    // Timer initializations
     var clockUpdater = Timer()
     var timerUpdater = Timer()
     var setTimer: Double = 0
@@ -56,17 +52,8 @@ class ViewController: UIViewController {
 
         // start liveClock Timer
         clockTimer()
-        
-        //update timerOn and musicOn flags
-        updateTestFlags()
+
     }
-    
-    // update Test Flags
-    func updateTestFlags() {
-        isTimerOn.text = "timerOn: \(timerOn)"
-        isMusicOn.text = "musicOn: \(musicOn)"
-    }
-    
     
     
     // clock Timer
@@ -130,16 +117,13 @@ class ViewController: UIViewController {
         if (musicOn == false) {
             if (timerOn == false) {
                 timerOn = !timerOn
-                updateTestFlags()
                 startTimer()
             } else {
                 timerOn = !timerOn
-                updateTestFlags()
                 stopTimer()
             }
         } else {
             toggleMusic()
-            updateTestFlags()
         }
         
     }
@@ -154,11 +138,9 @@ class ViewController: UIViewController {
         if (setTimer < 1) {
             timerUpdater.invalidate()
             timerOn = false
-            updateTestFlags()
             toggleMusic()
         } else {
-            updateTestFlags()
-            setTimer -= 10 // reset to 1
+            setTimer -= 1
             var timeAsString = timerFormat.string(from: setTimer)
             timeRemaining.text = "Time Remaining: \(timeAsString ?? "0")"
         }
@@ -167,7 +149,6 @@ class ViewController: UIViewController {
     func toggleMusic() {
         if (musicOn == false) { // if music is NOT ON, play Music
             musicOn = !musicOn
-            updateTestFlags()
             startStopButton.setTitle("Stop Music", for: .normal)
             if (isAm) {
                 audioPlayer = try! AVAudioPlayer(contentsOf: amSound!)
@@ -176,14 +157,10 @@ class ViewController: UIViewController {
                 audioPlayer = try! AVAudioPlayer(contentsOf: pmSound!)
                 audioPlayer.play()
             }
-            
-            timeRemaining.text = "Music Playing" // delete
         } else { // if music is ON, stop Music
             musicOn = !musicOn
-            updateTestFlags()
             audioPlayer.stop()
             startStopButton.setTitle("Start Timer", for: .normal)
-            timeRemaining.text = "Music Stopped" // delete
         }
     }
     
