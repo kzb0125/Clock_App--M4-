@@ -13,9 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var timeRemaining: UILabel!
     
-    // initialize AM/PM flag, displayMode flag, changeMode flag, timerOn flag
+    // initialize AM/PM flag, amMode flag, changeMode flag, timerOn flag
     var isAm = true
-    var displayMode = true
+    var amMode = true
     var changeMode = false
     var timerOn = false
     var musicOn = false
@@ -78,22 +78,21 @@ class ViewController: UIViewController {
         isAm = (currentHour < 12) ? true : false
         
         // changeMode is true when current AM/PM does not match up with Light/Dark mode, respectively
-        changeMode = (isAm == displayMode) ? false : true
+        changeMode = (isAm == amMode) ? false : true
         
-        if (changeMode) { // change displayMode when changeMode is true
-            displayMode = !displayMode //toggle displayMode to match current AM/PM flag
-            if (displayMode) { // if displayMode is true, activate light mode
+        if (changeMode) { // change amMode when changeMode is true
+            amMode = !amMode //toggle amMode to match current AM/PM flag
+            if (amMode) { // if amMode is true, activate light mode
                 lightMode()
-            } else { // if displayMode is false, activate dark mode
-                isAm = false
+            } else { // if amMode is false, activate dark mode
                 darkMode()
             }
-            changeMode = !changeMode // toggle changeMode after displayMode changes are made so it doesnt trigger again until AM/PM flag changes.
+            changeMode = !changeMode // toggle changeMode after amMode changes are made so it doesnt trigger again until AM/PM flag changes.
         }
         
     }
     
-    func lightMode() { // displayMode == true
+    func lightMode() { // amMode == true
         bgImage.image = UIImage (named: "am_Image")
         liveClock.textColor = UIColor.black
         timerPicker.overrideUserInterfaceStyle = .light
@@ -102,7 +101,7 @@ class ViewController: UIViewController {
         timeRemaining.textColor = UIColor.black
     }
     
-    func darkMode() { // displayMode == false
+    func darkMode() { // amMode == false
         bgImage.image = UIImage (named: "pm_Image")
         liveClock.textColor = UIColor.white
         timerPicker.overrideUserInterfaceStyle = .dark
@@ -141,7 +140,7 @@ class ViewController: UIViewController {
             toggleMusic()
         } else {
             setTimer -= 1
-            var timeAsString = timerFormat.string(from: setTimer)
+            let timeAsString = timerFormat.string(from: setTimer)
             timeRemaining.text = "Time Remaining: \(timeAsString ?? "0")"
         }
     }
